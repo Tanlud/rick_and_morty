@@ -3,6 +3,8 @@ import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import characters from "./data.js";
 import style from "./App.module.css";
 
+console.log("Esto es una modificación");
+
 function App() {
   return (
     <div className="App" style={{ padding: "25px" }}>
