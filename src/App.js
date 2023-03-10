@@ -1,21 +1,28 @@
 import Cards from "./components/Cards/Cards.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import { useState } from "react";
-import style from "./App.module.css";
+import { Route, Routes } from "react-router-dom";
+import About from "./components/About/About.jsx";
+import Detail from "./components/Detail/Detail.jsx";
 
 function App() {
+  // ! HOOKS
   const [characters, setCharacters] = useState([]);
 
+  // ! EVENT HANDLERS
   const onSearch = (id) => {
     const URL_BASE = "https://be-a-rym.up.railway.app/api";
     const KEY = "2d0fd52418f5.d3d6077a3b4c1857914f";
 
+    if (characters.find((char) => char.id === id)) {
+      return alert("Personaje repetido");
+    }
+
     fetch(`${URL_BASE}/character/${id}?key=${KEY}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data.name && !characters.find((char) => char.id === data.id)) {
+        if (data.name) {
           setCharacters((oldChars) => [...oldChars, data]);
-          // setCharacters([...characters, data]);
         } else {
           alert("Algo salió mal");
         }
@@ -27,14 +34,18 @@ function App() {
     setCharacters(characters.filter((char) => char.id !== id));
   };
 
+  // ! RENDER
   return (
-    <div className="App" style={{ padding: "25px" }}>
-      <div className={style.nav}>
-        <Nav onSearch={onSearch} />
-      </div>
-      <div>
-        <Cards characters={characters} onClose={onClose} />
-      </div>
+    <div>
+      <Nav onSearch={onSearch} />
+      <Routes>
+        <Route
+          path="/home"
+          element={<Cards characters={characters} onClose={onClose} />}
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="/detail/:detailId" element={<Detail />} />
+      </Routes>
     </div>
   );
 }
