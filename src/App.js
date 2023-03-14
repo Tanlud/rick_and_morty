@@ -1,13 +1,25 @@
 import Cards from "./components/Cards/Cards.jsx";
 import Nav from "./components/Nav/Nav.jsx";
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import About from "./components/About/About.jsx";
 import Detail from "./components/Detail/Detail.jsx";
+import Form from "./components/Form/Form";
 
 function App() {
   // ! HOOKS
   const [characters, setCharacters] = useState([]);
+  const { pathname } = useLocation();
+  const [access, setAccess] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    !access && navigate("/");
+  }, [access]);
+
+  // ! CREDENCIALES FAKE
+  const username = "jvega@mail.com";
+  const password = "mipass123";
 
   // ! EVENT HANDLERS
   const onSearch = (id) => {
@@ -34,11 +46,21 @@ function App() {
     setCharacters(characters.filter((char) => char.id !== id));
   };
 
+  const login = (userData) => {
+    if (userData.username === username && userData.password === password) {
+      setAccess(true);
+      navigate("/home");
+    } else {
+      alert("Credenciales incorrectas");
+    }
+  };
+
   // ! RENDER
   return (
     <div>
-      <Nav onSearch={onSearch} />
+      {pathname !== "/" && <Nav onSearch={onSearch} />}
       <Routes>
+        <Route path="/" element={<Form login={login} />} />
         <Route
           path="/home"
           element={<Cards characters={characters} onClose={onClose} />}
