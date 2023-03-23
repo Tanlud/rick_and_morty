@@ -1,0 +1,16 @@
+.mainContainer{
+    border-radius: 10px;
+    border: 1px solid black;
+    width: fit-content;
+    height: fit-content;
+    padding: 1em;
+    margin: auto;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    background-color: rgb(86, 113, 86);
+    color: blanchedalmond;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}

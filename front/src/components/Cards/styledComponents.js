@@ -10,4 +10,6 @@ export const CardsContainer = styled.div`
   padding: 2em;
   border-radius: 15px;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  flex-wrap: wrap;
+  gap: 1em;
 `;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import validation from "./validation";
+import style from "./Form.module.css";
 
 const Form = ({ login }) => {
   const [userData, setUserData] = useState({
@@ -26,7 +27,7 @@ const Form = ({ login }) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={style.mainContainer}>
       <div>
         <label htmlFor="username">Username:</label>
         <input

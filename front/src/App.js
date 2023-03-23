@@ -5,6 +5,8 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import About from "./components/About/About.jsx";
 import Detail from "./components/Detail/Detail.jsx";
 import Form from "./components/Form/Form";
+import Favorites from "./components/Favorites/Favorites.jsx";
+import { username, password } from "./utils/consts.js";
 
 function App() {
   // ! HOOKS
@@ -17,20 +19,16 @@ function App() {
     !access && navigate("/");
   }, [access]);
 
-  // ! CREDENCIALES FAKE
-  const username = "jvega@mail.com";
-  const password = "mipass123";
-
   // ! EVENT HANDLERS
   const onSearch = (id) => {
-    const URL_BASE = "https://be-a-rym.up.railway.app/api";
-    const KEY = "2d0fd52418f5.d3d6077a3b4c1857914f";
+    const URL_BASE = "http://localhost:3001/rickandmorty";
+    // const KEY = "2d0fd52418f5.d3d6077a3b4c1857914f";
 
     if (characters.find((char) => char.id === id)) {
       return alert("Personaje repetido");
     }
 
-    fetch(`${URL_BASE}/character/${id}?key=${KEY}`)
+    fetch(`${URL_BASE}/onsearch/${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.name) {
@@ -66,6 +64,7 @@ function App() {
           element={<Cards characters={characters} onClose={onClose} />}
         />
         <Route path="/about" element={<About />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/detail/:detailId" element={<Detail />} />
       </Routes>
     </div>
