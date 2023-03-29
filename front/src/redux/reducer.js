@@ -2,6 +2,7 @@ import {
   ADD_FAVORITE,
   CLEAN_DETAIL,
   GET_CHARACTER_DETAIL,
+  GET_FAVORITES,
   REMOVE_FAVORITE,
 } from "./actions";
 
@@ -36,6 +37,9 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         characterDetail: {},
       };
+
+    case GET_FAVORITES:
+      return { ...state, myFavorites: action.payload };
 
     default:
       return { ...state };
